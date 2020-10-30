@@ -1,5 +1,7 @@
 <script>
     import { createEventDispatcher } from 'svelte';
+    import { flip } from 'svelte/animate';
+    import { quintOut } from 'svelte/easing';
 
     const dispatch = createEventDispatcher();
 
@@ -10,10 +12,10 @@
     }
 </script>
 
-<main class="cover">
+<main class="cover" >
     <h2 class="side-tab">BEGOTTEN SOUNDS BRAND</h2>
     <b class="intro-b"/>
-    <img class="icon" on:click={turnPage} src="https://res.cloudinary.com/begottenson/image/upload/c_scale,w_300/v1601428948/Begotten_Sounds_Icon.png" alt="Begotten Sounds Icon">
+    <img class="icon" on:click={turnPage} src="https://res.cloudinary.com/begottenson/image/upload/c_scale,w_300/v1601428948/Begotten%20Sounds/Begotten_Sounds_Icon.png" alt="Begotten Sounds Icon">
     <h3 class="title">BEGOTTEN SOUNDS</h3>
 </main>
 

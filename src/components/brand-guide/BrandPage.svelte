@@ -4,18 +4,18 @@
     export let pageTitle = "" || "Text Title";
     export let pageNumber = '' || "#";
     export let paraOne, paraTwo, paraThree = '';
-    export let src = '';
+    export let src = "";
 
     const dispatch = createEventDispatcher();
 
     function turnPage() {
         dispatch('pageTurn', {
-            page: 1
+            page: 2
         })
     }
 </script>
 <section>
-    <img class="index-icon" on:click={turnPage} src="https://res.cloudinary.com/begottenson/image/upload/c_scale,w_100/v1601428948/Begotten_Sounds_Icon.png" alt="Begotten Sounds Icon">
+    <img class="index-icon" on:click={turnPage} src="https://res.cloudinary.com/begottenson/image/upload/c_scale,w_300/v1601428948/Begotten%20Sounds/Begotten_Sounds_Icon.png" alt="Begotten Sounds Icon">
     <h2 class="side-index">{pageTitle}</h2>
     <h2 class="index-number">{pageNumber}</h2>
     <b/>
@@ -26,7 +26,7 @@
         <p>{paraThree}</p>
     </div>
     <div class="show-section">
-        <img src={src} alt="Begotten Sounds Logo">
+        <img src={src} on:click={turnPage} alt="Begotten Sounds Logo">
     </div>
 </section>
 
@@ -110,5 +110,6 @@
     img {
         align-self: center;
         justify-self: center;
+        cursor: pointer;
     }
 </style>

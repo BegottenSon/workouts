@@ -1,13 +1,15 @@
-<script context="module">
+<!-- <script context="module">
 	export function preload({ params, query }) {
 		return this.fetch(`blog.json`).then(r => r.json()).then(posts => {
 			return { posts };
 		});
 	}
-</script>
+</script> -->
 
 <script>
-	export let posts;
+	import  posts  from "./_posts.js"
+	
+	// export let posts;
 </script>
 
 <style>
@@ -29,6 +31,7 @@
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
 				waiting for the 'click' event -->
-		<li><a rel='prefetch' href='blog/{post.slug}'>{post.title}</a></li>
+		<li><a rel='prefetch' href='blog/{post.metadata.slug}'>{post.metadata.title}</a></li>
+		<p>{post.metadata.summary}</p>
 	{/each}
 </ul>
