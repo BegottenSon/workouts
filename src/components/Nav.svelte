@@ -51,6 +51,7 @@
 <nav>
 	<ul>
 		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
+		<li><a aria-current="{segment === 'bookworm' ? 'page' : undefined}" href="bookworm">bookworm game</a></li>
 		<li><a aria-current="{segment === 'workouts' ? 'page' : undefined}" href="workouts">workouts</a></li>
 		<li><a aria-current="{segment === 'brand' ? 'page' : undefined}" href="brand">brand guide</a></li>
 		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>
