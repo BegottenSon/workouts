@@ -35,8 +35,9 @@
         --text-color: rgb(199, 62, 188);
         background-color: var(--secondary-color);
         color: var(--text-color);
-        height: 100vh;
-        width: 100vw;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        width: 99vw;
         margin: 0;
         position: absolute;
         top: 0;
@@ -76,7 +77,7 @@
     }
 
     img {
-        width: 48vw;
+        width: 46vw;
     }
 
     button {
