@@ -9,21 +9,21 @@
         playing = true;
         localStorage.word = theWord;
         localStorage.playing = playing;
-        console.log(localStorage.playing);
     }
 
     function newGame() {
         playing = false;
         localStorage.playing = playing;
-        localStorage.removeItem("word")
-
+        localStorage.removeItem("word");
+        localStorage.player1 = 0;
+        localStorage.player2 = 0;
+        theWord = "";
     }
 
     onMount(()=> {
         theWord = localStorage.word;
-        localStorage.getItem('playing') ? localStorage.getItem('playing') : localStorage.playing = false;
-        playing = localStorage.playing;
-        })
+        playing = JSON.parse(localStorage.playing);
+    })
     
 </script>
 
@@ -36,6 +36,8 @@
         background-color: var(--secondary-color);
         color: var(--text-color);
         height: 100vh;
+        width: 100vw;
+        margin: 0;
         position: absolute;
         top: 0;
         left: 0;  
@@ -68,6 +70,7 @@
     section {
         display: flex;
         gap: 1em;
+        column-gap: 1em;
         justify-content: center;
         text-align: center;
     }
@@ -102,6 +105,17 @@
         border-bottom: 4px solid var(--heading-color);
         color: var(--text-color);
         font-size: 14px;
+    }
+
+    @media (min-width: 600px) {
+        main {
+            width: 80vw;
+            height: 100vh;
+        }
+
+        img {
+            width: 28vw;
+        }
     }
 </style>
 

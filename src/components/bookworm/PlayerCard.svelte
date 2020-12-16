@@ -1,54 +1,49 @@
 <script>
     import { onMount } from 'svelte';
 
-    onMount(() => {
-        // if(localStorage.player1) {
-        //     localStorage.player1 = localStorage.player1;
-        //     localStorage.player2 = localStorage.player2;
-        // }else{
-        //     localStorage.player1 = 0;
-        //     localStorage.player2 = 0;
-        // }
-        localStorage.getItem('player1') ? localStorage.getItem('player1') : localStorage.player1 = 0;
-        localStorage.getItem('player2') ? localStorage.getItem('player2') : localStorage.player2 = 0;        
-    });
-    export let score = 0;
+    let score = 0;
     export let playerName = "enter name";
-    let playerOne = localStorage.player1;
-    let playerTwo = localStorage.player2;
-    
 
+    onMount(() => {
+        if(playerName === "Begotten Son") {
+            score = localStorage.getItem('player1') ? localStorage.getItem('player1') : localStorage.player1 = 0;
+        } 
+        if(playerName === "AhkoteeKia") {
+            score = localStorage.getItem('player2') ? localStorage.getItem('player2') : localStorage.player2 = 0;
+        }     
+    });
+    
     function add100() {
         if(playerName === "Begotten Son") {
-            playerOne = Number(playerOne) + 100;
-            score = playerOne;
+            localStorage.player1 = Number(localStorage.player1) + 100;
+            score = Number(score) + 100;
         }else{
-            playerTwo = Number(playerTwo) + 100;
-            score = playerTwo;
+            localStorage.player2 = Number(localStorage.player2) + 100;
+            score = Number(score) + 100;
         }
     }
     function add200() {
         if(playerName === "Begotten Son") {
-            playerOne = Number(playerOne) + 200;
-            score = playerOne;
+            localStorage.player1 = Number(localStorage.player1) + 200;
+            score = Number(score) + 200;
         }else{
-            playerTwo = Number(playerTwo) + 200;
-            score = playerTwo;
+            localStorage.player2 = Number(localStorage.player2) + 200;
+            score = Number(score) + 200;
         }
     }
     function add300() {
         if(playerName === "Begotten Son") {
-            playerOne = Number(playerOne) + 300;
-            score = playerOne;
+            localStorage.player1 = Number(localStorage.player1) + 300;
+            score = Number(score) + 300;
         }else{
-            playerTwo = Number(playerTwo) + 300;
-            score = playerTwo;
+            localStorage.player2 = Number(localStorage.player2) + 300;
+            score = Number(score) + 300;
         }
     }
     function reset() {
         score = 0;
-        playerOne = 0;
-        playerTwo = 0;
+        localStorage.player1 = 0;
+        localStorage.player2 = 0;
     }
 </script>
 <style>
@@ -91,7 +86,7 @@
     <section>
         <button class="points button" on:click={add100}>Noun</button>
         <button class="points button" on:click={add200}>Adjective</button>
-        <button class="points button" on:click={add300}>adverb</button>
+        <button class="points button" on:click={add300}>Adverb</button>
         <button class="reset button" on:click={reset}>reset</button>
     </section>
     <section class="player-card">
