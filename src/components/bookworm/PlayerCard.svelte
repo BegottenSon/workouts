@@ -3,7 +3,9 @@
 
     let score = 0;
     export let playerName = "enter name";
+    let pointsEffect = false;
 
+    //SET AND GET SCORE
     onMount(() => {
         if(playerName === "Begotten Son") {
             score = localStorage.getItem('player1') ? localStorage.getItem('player1') : localStorage.player1 = 0;
@@ -12,38 +14,40 @@
             score = localStorage.getItem('player2') ? localStorage.getItem('player2') : localStorage.player2 = 0;
         }     
     });
-    
-    function add100() {
+
+    //ADD SCORE
+    function addScore(num) {
         if(playerName === "Begotten Son") {
-            localStorage.player1 = Number(localStorage.player1) + 100;
-            score = Number(score) + 100;
+            localStorage.player1 = Number(localStorage.player1) + num;
+            score = Number(score) + num;
+            animateScore();
         }else{
-            localStorage.player2 = Number(localStorage.player2) + 100;
-            score = Number(score) + 100;
-        }
+            localStorage.player2 = Number(localStorage.player2) + num;
+            score = Number(score) + num;
+            animateScore();
+        };
+    }
+    function add100() {
+        addScore(100);
     }
     function add200() {
-        if(playerName === "Begotten Son") {
-            localStorage.player1 = Number(localStorage.player1) + 200;
-            score = Number(score) + 200;
-        }else{
-            localStorage.player2 = Number(localStorage.player2) + 200;
-            score = Number(score) + 200;
-        }
+        addScore(200);
     }
     function add300() {
-        if(playerName === "Begotten Son") {
-            localStorage.player1 = Number(localStorage.player1) + 300;
-            score = Number(score) + 300;
-        }else{
-            localStorage.player2 = Number(localStorage.player2) + 300;
-            score = Number(score) + 300;
-        }
+        addScore(300);
     }
     function reset() {
         score = 0;
         localStorage.player1 = 0;
         localStorage.player2 = 0;
+    }
+    
+    //SCORE ANIMATION
+    function animateScore() {
+        pointsEffect = true;
+        setTimeout(() => {
+            pointsEffect = false;
+        }, 500);
     }
 </script>
 <style>
@@ -70,6 +74,16 @@
         background-color: var(--secondary-color);
         font-weight: bold;
         font-size: 10px;
+        
+    }
+
+    .score {
+        transition: 400ms ease-out;
+    }
+
+    .pointsEffect {
+        color: gold;
+        transform: scale(1.2);
     }
 
     .reset {
@@ -84,14 +98,14 @@
 </style>
 <main>
     <section>
-        <button class="points button" on:click={add100}>Noun</button>
+        <button class="points button"  on:click={add100}>Noun</button>
         <button class="points button" on:click={add200}>Adjective</button>
         <button class="points button" on:click={add300}>Adverb</button>
         <button class="reset button" on:click={reset}>reset</button>
     </section>
     <section class="player-card">
         <h2>{playerName}</h2>
-        <h2>{score}</h2>
+        <h2 class:pointsEffect class="score">{score}</h2>
         <div class="profile">
             <slot>{playerName}'s picture</slot>
         </div>
