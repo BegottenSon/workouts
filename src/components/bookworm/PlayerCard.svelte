@@ -54,6 +54,7 @@
     main {
         background-color: thistle;
         border-radius: 4px;
+        margin: 0 0.5em;
     }
 
     .profile {
@@ -95,12 +96,18 @@
     .button:active {
         border-style: inset;
     }
+
+    .player-card  h2:first-child {
+        margin-top: 1.2em;
+    }
 </style>
-<main>
+<main class="player-container">
     <section>
         <button class="points button"  on:click={add100}>Noun</button>
+        <button class="points button"  on:click={add100}>Verb</button>
         <button class="points button" on:click={add200}>Adjective</button>
         <button class="points button" on:click={add300}>Adverb</button>
+        <br>
         <button class="reset button" on:click={reset}>reset</button>
     </section>
     <section class="player-card">

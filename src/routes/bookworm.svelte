@@ -29,7 +29,7 @@
 
 <style>
 
-    main {
+    .game-container {
         --secondary-color: rgb(136, 230, 164);
         --heading-color: rgb(158, 11, 146);
         --text-color: rgb(199, 62, 188);
@@ -70,8 +70,7 @@
 
     section {
         display: flex;
-        gap: 1em;
-        column-gap: 1em;
+        /* gap: 1em; */
         justify-content: center;
         text-align: center;
     }
@@ -120,7 +119,7 @@
     }
 </style>
 
-<main>
+<main class="game-container">
     <h1>The Book Worm Game</h1>
     {#if !playing}
         <h4>Add word:</h4>
