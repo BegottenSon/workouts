@@ -1,9 +1,12 @@
 <script>
     import { onMount } from 'svelte';
 
-    let score = 0;
     export let playerName = "enter name";
+    let score = 0;
     let pointsEffect = false;
+    let disable = false;
+    let minute = 1000 * 60
+    let coolDownTime = minute * 30;
 
     //SET AND GET SCORE
     onMount(() => {
@@ -26,6 +29,7 @@
             score = Number(score) + num;
             animateScore();
         };
+        disableButtons();
     }
     function add100() {
         addScore(100);
@@ -41,6 +45,14 @@
         localStorage.player1 = 0;
         localStorage.player2 = 0;
     }
+
+    //DISABLE BUTTONS FOR LIMITED TIME
+    function disableButtons() {
+        disable = true;
+        setTimeout(() => {
+            disable = false;
+        }, coolDownTime);
+    }
     
     //SCORE ANIMATION
     function animateScore() {
@@ -54,6 +66,7 @@
     main {
         background-color: thistle;
         border-radius: 4px;
+        box-shadow: 1px 2px 5px rgba(38, 2, 53, 0.418);
         margin: 0 0.5em;
     }
 
@@ -75,7 +88,7 @@
         background-color: var(--secondary-color);
         font-weight: bold;
         font-size: 10px;
-        
+        transition: 400ms ease-out;
     }
 
     .score {
@@ -97,16 +110,27 @@
         border-style: inset;
     }
 
+    .points:disabled {
+        background-color: rgb(108, 200, 253);
+        color: rgb(0, 41, 165);
+        animation: coolDown 108000s forwards;
+    }
+
     .player-card  h2:first-child {
         margin-top: 1.2em;
+    }
+
+    @keyframes coolDown {
+        from {filter: saturate(1);}
+        to {filter: saturate(0.2);}
     }
 </style>
 <main class="player-container">
     <section>
-        <button class="points button"  on:click={add100}>Noun</button>
-        <button class="points button"  on:click={add100}>Verb</button>
-        <button class="points button" on:click={add200}>Adjective</button>
-        <button class="points button" on:click={add300}>Adverb</button>
+        <button class="points button" on:click={add100} disabled={disable}>Noun</button>
+        <button class="points button" on:click={add100} disabled={disable}>Verb</button>
+        <button class="points button" on:click={add200} disabled={disable}>Adjective</button>
+        <button class="points button" on:click={add300} disabled={disable}>Adverb</button>
         <br>
         <button class="reset button" on:click={reset}>reset</button>
     </section>
