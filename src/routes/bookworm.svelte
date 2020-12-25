@@ -33,6 +33,7 @@
         --secondary-color: rgb(136, 230, 164);
         --heading-color: rgb(158, 11, 146);
         --text-color: rgb(199, 62, 188);
+        --sky-blue: rgb(108, 200, 253);
         background-color: var(--secondary-color);
         color: var(--text-color);
         min-height: 100vh;

@@ -1,12 +1,15 @@
 <script>
     import { onMount } from 'svelte';
+    import { fade } from 'svelte/transition';
 
     export let playerName = "enter name";
     let score = 0;
     let pointsEffect = false;
     let disable = false;
-    let minute = 1000 * 60
+    let minute = 1000 * 60;
     let coolDownTime = minute * 30;
+    let originalTime = 30 * 60;
+    let timer = 30 * 60;
 
     //SET AND GET SCORE
     onMount(() => {
@@ -49,6 +52,7 @@
     //DISABLE BUTTONS FOR LIMITED TIME
     function disableButtons() {
         disable = true;
+        runTimer();
         setTimeout(() => {
             disable = false;
         }, coolDownTime);
@@ -61,6 +65,33 @@
             pointsEffect = false;
         }, 500);
     }
+
+    //TIMER FOR THE COOL DOWN DISABLE BUTTONS
+    function theTimer() {
+        localStorage.timer = timer;
+            if(timer > 0) {
+                timer -= 1
+            }else{
+                clearTimer()
+                localStorage.removeItem("timer")
+            }
+    }
+    
+    function clearTimer() {
+        clearInterval(runningTime);
+        timer = originalTime;
+        console.log("timer is cleared: " + timer);
+    }
+
+    function runTimer() {
+        runningTime = setInterval(theTimer, 1000);
+    }
+
+    let runningTime;
+    $: minutes = Math.floor(timer / 60);
+    $: seconds = Math.floor(timer - minutes * 60);
+    
+
 </script>
 <style>
     main {
@@ -68,6 +99,7 @@
         border-radius: 4px;
         box-shadow: 1px 2px 5px rgba(38, 2, 53, 0.418);
         margin: 0 0.5em;
+        position: relative;
     }
 
     .profile {
@@ -113,16 +145,37 @@
     .points:disabled {
         background-color: rgb(108, 200, 253);
         color: rgb(0, 41, 165);
-        animation: coolDown 108000s forwards;
     }
 
     .player-card  h2:first-child {
         margin-top: 1.2em;
     }
 
+    .cool-down-shield {
+        background-color: var(--sky-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        filter: opacity(0.8);
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: coolDown 108000s forwards;
+    }
+
+    .timer {
+        background-color: var(--sky-blue);
+        border-radius: 8px;
+        filter: saturate(120);
+        padding: 1em;
+    }
+
     @keyframes coolDown {
-        from {filter: saturate(1);}
-        to {filter: saturate(0.2);}
+        from {filter: opacity(0.8);}
+        to {filter: opacity(0.3)}
     }
 </style>
 <main class="player-container">
@@ -140,5 +193,18 @@
         <div class="profile">
             <slot>{playerName}'s picture</slot>
         </div>
-    </section>  
+    </section>
+    {#if disable}
+        <div class="cool-down-shield" 
+        transition:fade="{{delay: 800, duration: 300}}">
+            <h2 class="timer">
+                {minutes}:
+                {#if seconds < 10}
+                0{seconds}
+                {:else}
+                {seconds}
+                {/if}
+            </h2>
+        </div>
+    {/if}
 </main>
